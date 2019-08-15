@@ -49,13 +49,11 @@ export default {
         })
     },
     async loadNote (key) {
-      let note = await this.$indexedDB.get('notebook', key)
-      console.log(note)
-      // this.note = this.$indexedDB.get(key)
+      this.note = await this.$indexedDB.get('notebook', key)
     }
   },
-  mounted () {
-    if (this.$route.params.key) this.loadNote(this.$route.params.key)
+  created () {
+    if (this.$route.params.key) this.loadNote(parseInt(this.$route.params.key))
   }
 }
 </script>

@@ -115,12 +115,11 @@ class Store {
 
     return new Promise((resolve, reject) => {
       const request = connection
-        .transaction([store], 'readwrite')
+        .transaction([store], 'readonly')
         .objectStore(store)
         .get(key)
 
       request.onsuccess = event => {
-        console.log(event.target)
         resolve(event.target.result)
       }
 
@@ -140,8 +139,9 @@ class Store {
         .objectStore(store)
         .delete(key)
 
-      request.onsuccess = () => {
-        resolve()
+      request.onsuccess = event => {
+        console.log(event.target)
+        resolve(event.target.result)
       }
 
       request.onerror = event => {
