@@ -53,14 +53,14 @@ class Store {
     })
   }
 
-  async update (store, data) {
+  async update (store, data, key) {
     if (!connection) await openConnection()
 
     return new Promise((resolve, reject) => {
       const request = connection
         .transaction([store], 'readwrite')
         .objectStore(store)
-        .put(data)
+        .put(data, key)
 
       request.onsuccess = () => {
         resolve()

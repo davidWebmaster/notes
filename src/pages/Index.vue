@@ -6,7 +6,7 @@
     v-model="note.content"
     :toolbar="toolbar"
      />
-    <button type="button" @click="addNote">Salve</button>
+    <button type="button" @click="saveNote">Salve</button>
   </div>
 </template>
 
@@ -31,18 +31,31 @@ export default {
       ],
       note: {
         title: '',
-        content: 'your note where...'
+        content: 'your note where...',
+        update_at: ''
       }
     }
   },
   methods: {
-    addNote () {
-      let store = this.$indexedDB, timestamp = Date.now()
+    saveNote () {
+      let timestamp = Date.now()
       this.note.update_at = timestamp
 
-      store.save('notebook', this.note)
+      this.$indexedDB.save('notebook', this.note)
         .then(response => {
-          console.log(response)
+          console.log('saved note')
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    updateNote () {
+      let timestamp = Date.now()
+      this.note.update_at = timestamp
+
+      this.$indexedDB.update('notebook', this.note, parseInt(this.$route.params.key))
+        .then(response => {
+          console.log('updated note')
         })
         .catch(error => {
           console.log(error)
@@ -54,6 +67,17 @@ export default {
   },
   created () {
     if (this.$route.params.key) this.loadNote(parseInt(this.$route.params.key))
+  },
+  watch: {
+    '$route.params.key': function (key) {
+      if (this.$route.params.key) this.loadNote(parseInt(this.$route.params.key))
+    },
+    'note.title': function () {
+      this.updateNote()
+    },
+    'note.content': function () {
+      this.updateNote()
+    }
   }
 }
 </script>
