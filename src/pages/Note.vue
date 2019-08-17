@@ -6,7 +6,6 @@
     v-model="note.content"
     :toolbar="toolbar"
      />
-    <button type="button" @click="saveNote">Salve</button>
   </div>
 </template>
 
@@ -25,8 +24,7 @@ export default {
   data () {
     return {
       toolbar: [
-        ['left', 'center', 'right', 'justify',
-          'bold', 'italic', 'strike', 'underline',
+        ['left', 'center', 'right', 'justify', 'bold', 'italic', 'strike', 'underline',
           'quote', 'unordered', 'ordered', 'outdent', 'indent', 'undo', 'redo']
       ],
       note: {

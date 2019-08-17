@@ -27,12 +27,6 @@ const openConnection = () => {
 }
 
 class Store {
-  // Abre conexão com o banco
-  async open () {
-    await openConnection()
-    return this
-  }
-
   async save (store, data) {
     if (!connection) await openConnection()
 

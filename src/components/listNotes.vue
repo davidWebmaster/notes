@@ -40,7 +40,7 @@ export default {
       return date.formatDate(timestamp, 'D MMMM YYYY - HH:mm')
     },
     toNote (key) {
-      return this.$router.push('/' + key)
+      return this.$router.push('/note/' + key)
     },
     limitContent (content) {
       if (content.length > 305) return content.substr(0, 305) + '...'

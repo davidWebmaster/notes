@@ -15,7 +15,7 @@
         <q-toolbar-title>
           Notes App
         </q-toolbar-title>
-
+        <q-btn flat round dense icon="home" title="Home" to="/" />
         <q-btn class="btn_action" flat round dense icon="add_comment" title="Create a note" />
         <q-btn flat round dense icon="delete" title="Delete" />
       </q-toolbar>
