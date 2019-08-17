@@ -21,7 +21,7 @@ const openConnection = () => {
 
     request.onerror = event => {
       console.log(event.target.error)
-      reject('Deu merda ao conectar com o banco...')
+      reject('Could not connect to database')
     }
   })
 }
@@ -47,7 +47,7 @@ class Store {
 
       request.onerror = event => {
         console.log(event.target.error)
-        reject('Não foi possível persistir os dados')
+        reject('Could not save data')
       }
     })
   }
@@ -67,7 +67,7 @@ class Store {
 
       request.onerror = event => {
         console.log(event.target.error)
-        reject('Não foi possível atualizar os dados')
+        reject('Unable to update data')
       }
     })
   }
@@ -86,15 +86,15 @@ class Store {
       request.onsuccess = event => {
         const current = event.target.result
         var item = {}
-        // Se for null, não há mais dados
+        // if null, no more data
         if (current) {
           item = current.value
           item.key = current.key
           list.push(item)
-          // vai para o próximo registro
+          // next row
           current.continue()
         } else {
-          // Ordenação decrescente por data das notas
+          // descending sort by date updated
           list.sort(function (a, b) {
             return b.update_at - a.update_at
           })
@@ -104,7 +104,7 @@ class Store {
 
       request.onerror = event => {
         console.log(event.target.error)
-        reject('Não foi possível listar os dados')
+        reject('Unable to list data')
       }
     })
   }
@@ -124,7 +124,7 @@ class Store {
 
       request.onerror = event => {
         console.log(event.target.error)
-        reject('Não foi possível persistir os dados')
+        reject('Unable to get data')
       }
     })
   }
@@ -144,7 +144,7 @@ class Store {
 
       request.onerror = event => {
         console.log(event.target.error)
-        reject('Não foi possível excluir os dados')
+        reject('Unable to delete data')
       }
     })
   }

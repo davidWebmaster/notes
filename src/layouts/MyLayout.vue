@@ -89,7 +89,7 @@ export default {
       let timestamp = Date.now()
 
       this.$indexedDB.save('notebook', {
-        title: 'untitled note',
+        title: 'Untitled note',
         content: 'your note where...',
         update_at: timestamp
       }).then(key => {
