@@ -94,6 +94,7 @@ export default {
         update_at: timestamp
       }).then(key => {
         console.log('saved note')
+        this.loadNotes()
         return this.$router.push('/note/' + key)
       }).catch(error => {
         console.log(error)
