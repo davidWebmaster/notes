@@ -1,6 +1,6 @@
 # Quasar App (notes)
 
-Simple Note App, developed with quasar framework using indexedDB for storage
+Simple Note App, developed with quasar framework using indexedDB for storage and Vuex for data management.
 
 ## functionalities:
   - Real time saving;
