@@ -1,7 +1,13 @@
 # Quasar App (notes)
 
-A Quasar Framework app
+Simple Note App, developed with quasar framework using indexedDB for storage
 
+## functionalities:
+  - Real time saving;
+  - Search in notes;
+  - Deleting note;
+  - Editor WYSIWYG;
+  - List notes;
 ## Install the dependencies
 ```bash
 npm install
