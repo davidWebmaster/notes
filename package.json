@@ -1,8 +1,8 @@
 {
   "name": "notes",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "Quasar App",
+  "description": "Simple Note App",
+  "productName": "Notes App",
   "cordovaId": "org.cordova.quasar.app",
   "author": "David Figueiredo",
   "private": true,
