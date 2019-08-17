@@ -72,7 +72,7 @@ class Store {
     })
   }
 
-  async list (store) {
+  async list (store, search = '') {
     if (!connection) await openConnection()
 
     return new Promise((resolve, reject) => {
@@ -90,7 +90,13 @@ class Store {
         if (current) {
           item = current.value
           item.key = current.key
-          list.push(item)
+          // search in itens
+          if (search.length) {
+            if (item.title.indexOf(search) !== -1 ||
+                item.content.indexOf(search) !== -1) list.push(item)
+          } else {
+            list.push(item)
+          }
           // next row
           current.continue()
         } else {

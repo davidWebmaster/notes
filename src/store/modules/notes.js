@@ -6,8 +6,8 @@ export default {
     notes: []
   },
   actions: {
-    async loadNotes ({ context, commit }) {
-      commit('SET_NOTES', await indexedDB.list('notebook'))
+    async loadNotes ({ context, commit }, search = '') {
+      commit('SET_NOTES', await indexedDB.list('notebook', search))
     }
   },
   mutations: {
