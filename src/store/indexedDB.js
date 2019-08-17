@@ -27,6 +27,11 @@ const openConnection = () => {
 }
 
 class Store {
+  async open () {
+    if (!connection) await openConnection()
+    return this
+  }
+
   async save (store, data) {
     if (!connection) await openConnection()
 
@@ -36,8 +41,8 @@ class Store {
         .objectStore(store)
         .add(data)
 
-      request.onsuccess = () => {
-        resolve('nota salva com sucesso')
+      request.onsuccess = event => {
+        resolve(event.target.result)
       }
 
       request.onerror = event => {

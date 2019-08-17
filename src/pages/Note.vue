@@ -14,6 +14,7 @@
 
 <script>
 import { QEditor, QInput } from 'quasar'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'PageIndex',
@@ -35,18 +36,7 @@ export default {
     }
   },
   methods: {
-    saveNote () {
-      let timestamp = Date.now()
-      this.note.update_at = timestamp
-
-      this.$indexedDB.save('notebook', this.note)
-        .then(response => {
-          console.log('saved note')
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    },
+    ...mapActions('notes', ['loadNotes']),
     updateNote () {
       let timestamp = Date.now()
       this.note.update_at = timestamp
@@ -70,11 +60,19 @@ export default {
     '$route.params.key': function (key) {
       if (this.$route.params.key) this.loadNote(parseInt(this.$route.params.key))
     },
-    'note.title': function () {
-      this.updateNote()
+    'note.title': async function () {
+      let note = await this.$indexedDB.get('notebook', parseInt(this.$route.params.key))
+      if (note.title !== this.note.title) {
+        await this.updateNote()
+        this.loadNotes()
+      }
     },
-    'note.content': function () {
-      this.updateNote()
+    'note.content': async function () {
+      let note = await this.$indexedDB.get('notebook', parseInt(this.$route.params.key))
+      if (note.content !== this.note.content) {
+        await this.updateNote()
+        this.loadNotes()
+      }
     }
   }
 }

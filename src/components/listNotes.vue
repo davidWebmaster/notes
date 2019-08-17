@@ -5,7 +5,7 @@
       <q-item :active="note.key == $route.params.key" clickable v-for="(note, index) in notes" :key="index" :id="note.key" @click="toNote(note.key)">
         <q-item-section>
           <q-item-label class="title_note">{{note.title}}</q-item-label>
-          <q-item-label v-html="limitContent(note.content)" caption class="content_note"></q-item-label>
+          <q-item-label v-html="note.content" caption class="content_note"></q-item-label>
           <q-item-label caption class="datetime">{{formatDate(note.update_at)}}</q-item-label>
         </q-item-section>
       </q-item>
@@ -15,6 +15,7 @@
 
 <script>
 import { date, QBadge } from 'quasar'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'listNotes',
@@ -23,13 +24,11 @@ export default {
   },
   data () {
     return {
-      notes: []
+
     }
   },
   methods: {
-    async loadNotes () {
-      this.notes = await this.$indexedDB.list('notebook')
-    },
+    ...mapActions('notes', ['loadNotes']),
     formatDate (timestamp) {
       let now = Date.now()
       let nowFormated = date.formatDate(now, 'D MMMM YYYY')
@@ -41,12 +40,10 @@ export default {
     },
     toNote (key) {
       return this.$router.push('/note/' + key)
-    },
-    limitContent (content) {
-      if (content.length > 305) return content.substr(0, 305) + '...'
-
-      return content
     }
+  },
+  computed: {
+    ...mapState('notes', ['notes'])
   },
   created () {
     this.loadNotes()
@@ -61,6 +58,7 @@ export default {
 .content_note {
   height: 35px;
   line-height: 1.5em !important;
+  overflow: hidden;
 }
 .datetime {
   font-size: 0.65rem;

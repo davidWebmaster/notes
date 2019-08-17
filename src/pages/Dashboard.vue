@@ -16,7 +16,7 @@
           <q-separator inset />
 
           <q-card-section>
-            <div class="text-h7 text-right"> You have <q-badge style="font-size: 1rem; padding: 0.35rem">123</q-badge> Notes created</div>
+            <div class="text-h7 text-right"> You have <q-badge style="font-size: 1rem; padding: 0.35rem">{{ notes.length }}</q-badge> Notes created</div>
           </q-card-section>
         </q-card>
       </div>
@@ -26,6 +26,7 @@
 
 <script>
 import { QCard, QCardSection, QSeparator, QIcon, QBadge } from 'quasar'
+import { mapState } from 'vuex'
 
 export default {
   name: 'dashboard',
@@ -38,6 +39,9 @@ export default {
   },
   data () {
     return {}
+  },
+  computed: {
+    ...mapState('notes', ['notes'])
   }
 }
 </script>
