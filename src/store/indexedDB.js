@@ -139,7 +139,6 @@ class Store {
         .delete(key)
 
       request.onsuccess = event => {
-        console.log(event.target)
         resolve(event.target.result)
       }
 

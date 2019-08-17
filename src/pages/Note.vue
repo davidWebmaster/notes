@@ -50,7 +50,9 @@ export default {
         })
     },
     async loadNote (key) {
-      this.note = await this.$indexedDB.get('notebook', key)
+      let result = await this.$indexedDB.get('notebook', key)
+      if (!result) return this.$router.push('/')
+      this.note = result
     }
   },
   created () {
